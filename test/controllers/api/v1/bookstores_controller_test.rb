@@ -29,7 +29,9 @@ class Api::V1::BookstoresControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy bookstore" do
-    delete api_v1_bookstores_destroy_url
+    assert_difference 'Bookstore.count', -1 do
+      delete "/api/v1/destroy/#{ @bookstore.id }"
+    end
     assert_response :success
   end
 

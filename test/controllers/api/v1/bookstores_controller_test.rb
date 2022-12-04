@@ -1,13 +1,25 @@
 require "test_helper"
 
 class Api::V1::BookstoresControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @bookstore = bookstores(:bookstore1)
+  end
+
   test "should get bookstores index" do
     get '/bookstores'
     assert_response :success
   end
 
   test "should create bookstore" do
-    post api_v1_bookstores_create_url
+    assert_difference('Bookstore.count') do
+      post(
+        api_v1_bookstores_create_url, params: { 
+          codename: @bookstore.codename,
+          address: @bookstore.address,
+          phone: @bookstore.phone,
+          image: @bookstore.image }
+      )
+    end
     assert_response :success
   end
 

@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  quantity: 1
-  bookstore: one
-  book: one
+copy1:
+  quantity: 10
+  bookstore: bookstore1
+  book: book2
 
-two:
-  quantity: 1
-  bookstore: two
-  book: two
+copy2:
+  quantity: 10
+  bookstore: bookstore2
+  book: book1

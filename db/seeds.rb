@@ -6,10 +6,29 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+require 'faker'
+
+Bookstore.destroy_all
+Book.destroy_all
+
 9.times do |i|
-  Bookstore.create(
+  bookstore = Bookstore.create!(
     codename: "Bookstore #{i + 1}",
-    address: 'Niños Heroes 2014, Zona Centro, 31000',
-    phone: '205-323-2229'
+    address: Faker::Address.full_address,
+    phone: Faker::PhoneNumber.cell_phone,
+    image: Faker::Avatar.imageq
   )
+
+  10.times do |n|
+    book = Book.create!(
+      title: Faker::Book.title,
+      author: Faker::Book.author,
+      year: '2000'
+    )
+    srand
+    book.copies.create(
+      quantity: rand(1..50),
+      bookstore: bookstore
+    )
+  end
 end

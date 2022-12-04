@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      get 'copies/index'
+      get 'copies/create'
+      get 'copies/edit'
+      get 'copies/update'
+      get 'copies/show'
+      get 'copies/destroy'
+      get 'books/index'
+      get 'books/create'
+      get 'books/edit'
+      get 'books/update'
+      get 'books/show'
+      get 'books/destroy'
       get 'bookstores/index'
       post 'bookstores/create'
-      get '/show/:id', to: 'bookstores#show'
+      get '/show/:id', to: 'copies#show'
       delete '/destroy/:id', to: 'bookstores#destroy'
     end
   end

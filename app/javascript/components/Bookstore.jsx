@@ -5,6 +5,8 @@ const Bookstore = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [bookstore, setBookstore] = useState({ address: "" });
+    const [books, setBooks] = useState([]);
+    const [copies, setCopies] = useState([]);
 
     useEffect(() => {
         const url = `/api/v1/show/${params.id}`;
@@ -17,6 +19,12 @@ const Bookstore = () => {
           })
           .then((response) => setBookstore(response))
           .catch(() => navigate("/bookstores"));
+    }, [params.id]);
+
+    useEffect(() => {
+      // Get the copies of actual bookstore
+      const copies_url = `/api/v1/copies/show/${params.id}`;
+      const books_url = `/api/v1/books/show/${params.id}`;
     }, [params.id]);
 
     const bookList = () => {
@@ -32,7 +40,7 @@ const Bookstore = () => {
           ));
       }
   
-      return ingredientList;
+      return bookList;
     };
 
     const deleteBookstore = () => {

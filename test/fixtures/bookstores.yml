@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  codename: MyString
-  address: MyText
-  phone: MyString
+bookstore1:
+  codename: Bookstore 1
+  address: Random St. 786
+  phone: 811-190-1939
   image: MyString
 
-two:
-  codename: MyString
-  address: MyText
-  phone: MyString
+bookstore2:
+  codename: Bookstore 2
+  address: Random St. 190
+  phone: 844-193-1930
   image: MyString

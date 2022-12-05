@@ -23,6 +23,14 @@ const Bookstore = () => {
           .catch(() => navigate("/bookstores"));
     }, [params.id]);
 
+    const noBooks = (
+      <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+        <h4>
+          No books yet. Why not <Link to="/new_book">create one</Link>
+        </h4>
+      </div>
+    );
+
     const getBooks = async () => {
       const url = `/api/v1/show/${params.id}`;
       try {
@@ -59,23 +67,9 @@ const Bookstore = () => {
         .catch((error) => console.log(error.message));
     };
 
-    // TODO: Render bookstore with its list of books
-    return (
-      <div className="">
-        <div className="hero position-relative d-flex align-items-center justify-content-center">
-          <img
-            src={bookstore.image}
-            alt={`${bookstore.codename} image`}
-            className="img-fluid position-absolute"
-          />
-          <div className="overlay bg-dark position-absolute" />
-          <h1 className="display-4 position-relative text-white">
-            {bookstore.codename}
-          </h1>
-        </div>
-        <div className="container py-5">
-          <div className="row">
-            <div className="col-sm-12 col-lg-2">
+    const allBooks = (
+      <>
+        <div className="col-sm-12 col-lg-2">
               <input 
               type="text"
               className="col-sm-12"
@@ -111,7 +105,27 @@ const Bookstore = () => {
                 >
                   Delete Bookstore
                 </button>
-            </div>
+          </div>
+      </>
+    );
+
+    // TODO: Render bookstore with its list of books
+    return (
+      <div className="">
+        <div className="hero position-relative d-flex align-items-center justify-content-center">
+          <img
+            src={bookstore.image}
+            alt={`${bookstore.codename} image`}
+            className="img-fluid position-absolute"
+          />
+          <div className="overlay bg-dark position-absolute" />
+          <h1 className="display-4 position-relative text-white">
+            {bookstore.codename}
+          </h1>
+        </div>
+        <div className="container py-5">
+          <div className="row">
+            { books.length > 0 ? allBooks : noBooks }
           </div>
           <Link to="/bookstores" className="btn btn-link">
           Back to bookstores

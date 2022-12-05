@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      # get 'copies/index'
-      # get 'copies/create'
-      # get 'copies/edit'
-      # get 'copies/update'
-      # get 'copies/show'
-      # get 'copies/destroy'
       get 'books/index'
       post 'books/create'
       get 'books/edit', to: 'books#edit'

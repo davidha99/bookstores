@@ -1,7 +1,7 @@
 class Api::V1::BookstoresController < ApplicationController
   before_action :set_bookstore, only: %i[show destroy]
   def index
-    bookstore = Bookstore.all
+    bookstore = Bookstore.all.order(created_at: :asc)
     render json: bookstore
   end
 

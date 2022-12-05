@@ -39,7 +39,7 @@ const Bookstore = () => {
     }, []);
 
     const deleteBookstore = () => {
-      const url = `/api/v1/bookstores/destroy/${params.id}`;
+      const url = `/api/v1/destroy/${params.id}`;
       const token = document.querySelector('meta[name="csrf-token"]').content;
   
       fetch(url, {

@@ -23,14 +23,6 @@ const Bookstore = () => {
           .catch(() => navigate("/bookstores"));
     }, [params.id]);
 
-    const noBooks = (
-      <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
-        <h4>
-          No books yet. Why not <Link to="/new_book">create one</Link>
-        </h4>
-      </div>
-    );
-
     const getBooks = async () => {
       const url = `/api/v1/show/${params.id}`;
       try {
@@ -67,45 +59,64 @@ const Bookstore = () => {
         .catch((error) => console.log(error.message));
     };
 
+    const noBooks = (
+      <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+        <div>
+          <h4>
+            No books yet. Why not <Link to="/new_book">create one</Link>
+          </h4>
+        </div>
+        <div className="col-sm-12 col-lg-2">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={deleteBookstore}
+            >
+              Delete Bookstore
+            </button>
+        </div>
+      </div>
+    );
+
     const allBooks = (
       <>
         <div className="col-sm-12 col-lg-2">
-              <input 
-              type="text"
-              className="col-sm-12"
-              placeholder="Search title, author, or year"
-              onChange={e => {
-                setSearch(e.target.value);
-              }}
-              />
-            </div>
-            <div className="col-sm-12 col-lg-7">
-              <ul className="list-group">
-                <h5 className="mb-2">Books</h5>
-                {books.filter(book => {
-                  if (search == "") {
-                    return book;
-                  } else if (book.title.toLowerCase().includes(search.toLowerCase())) {
-                    return book;
-                  } else if (book.author.toLowerCase().includes(search.toLowerCase())) {
-                    return book;
-                  } else if (book.year.toLowerCase().includes(search.toLowerCase())) {
-                    return book;
-                  }
-                }).map(book => {
-                  return <p>{book.title} - {book.author} - {book.year}</p>
-                })}
-              </ul>
-            </div>
-            <div className="col-sm-12 col-lg-2">
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={deleteBookstore}
-                >
-                  Delete Bookstore
-                </button>
-          </div>
+          <input 
+          type="text"
+          className="col-sm-12"
+          placeholder="Search title, author, or year"
+          onChange={e => {
+            setSearch(e.target.value);
+          }}
+          />
+        </div>
+        <div className="col-sm-12 col-lg-7">
+          <ul className="list-group">
+            <h5 className="mb-2">Books</h5>
+            {books.filter(book => {
+              if (search == "") {
+                return book;
+              } else if (book.title.toLowerCase().includes(search.toLowerCase())) {
+                return book;
+              } else if (book.author.toLowerCase().includes(search.toLowerCase())) {
+                return book;
+              } else if (book.year.toLowerCase().includes(search.toLowerCase())) {
+                return book;
+              }
+            }).map(book => {
+              return <p>{book.title} - {book.author} - {book.year}</p>
+            })}
+          </ul>
+        </div>
+        <div className="col-sm-12 col-lg-2">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={deleteBookstore}
+            >
+              Delete Bookstore
+            </button>
+        </div>
       </>
     );
 

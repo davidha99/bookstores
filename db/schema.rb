@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_041349) do
     t.string "codename", null: false
     t.text "address", null: false
     t.string "phone", null: false
-    t.string "image", default: "https://picsum.photos/200"
+    t.string "image", default: "https://robohash.org/sitsequiquia.png?size=300x300&set=set1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

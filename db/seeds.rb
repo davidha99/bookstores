@@ -16,7 +16,7 @@ Book.destroy_all
     codename: "Bookstore #{i + 1}",
     address: Faker::Address.full_address,
     phone: Faker::PhoneNumber.cell_phone,
-    image: Faker::Avatar.imageq
+    image: Faker::Avatar.image
   )
 
   10.times do |n|

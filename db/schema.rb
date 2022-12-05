@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_04_041349) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_04_041128) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,8 +18,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_041349) do
     t.string "title", null: false
     t.string "author", null: false
     t.string "year", null: false
+    t.integer "quantity"
+    t.bigint "bookstore_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bookstore_id"], name: "index_books_on_bookstore_id"
   end
 
   create_table "bookstores", force: :cascade do |t|
@@ -27,21 +30,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_041349) do
     t.text "address", null: false
     t.string "phone", null: false
     t.string "image", default: "https://robohash.org/sitsequiquia.png?size=300x300&set=set1"
+    t.integer "books_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "copies", force: :cascade do |t|
-    t.integer "quantity", null: false
-    t.bigint "bookstore_id", null: false
-    t.bigint "book_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_copies_on_book_id"
-    t.index ["bookstore_id", "book_id"], name: "index_copies_on_bookstore_id_and_book_id", unique: true
-    t.index ["bookstore_id"], name: "index_copies_on_bookstore_id"
-  end
-
-  add_foreign_key "copies", "books"
-  add_foreign_key "copies", "bookstores"
+  add_foreign_key "books", "bookstores"
 end

@@ -20,15 +20,14 @@ Book.destroy_all
   )
 
   10.times do |n|
-    book = Book.create!(
+    srand
+    bookstore.books.create!(
       title: Faker::Book.title,
       author: Faker::Book.author,
-      year: '2000'
-    )
-    srand
-    book.copies.create(
-      quantity: rand(1..50),
-      bookstore: bookstore
+      year: Faker::Date.between(from: '1950-09-23', to: '2014-09-25').year,
+      quantity: rand(1..50)
     )
   end
 end
+
+

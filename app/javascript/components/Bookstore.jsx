@@ -11,7 +11,7 @@ const Bookstore = () => {
     const [copies, setCopies] = useState([]);
 
     useEffect(() => {
-        const url = `/api/v1/show/${params.id}`;
+        const url = `/api/v1/bookstores/show/${params.id}`;
         fetch(url)
           .then((response) => {
             if (response.ok) {
@@ -24,7 +24,7 @@ const Bookstore = () => {
     }, [params.id]);
 
     const getBooks = async () => {
-      const url = `/api/v1/show/${params.id}`;
+      const url = `/api/v1/bookstores/show/${params.id}`;
       try {
         const data = await axios.get(url);
         console.log(data.data);
@@ -39,7 +39,7 @@ const Bookstore = () => {
     }, []);
 
     const deleteBookstore = () => {
-      const url = `/api/v1/destroy/${params.id}`;
+      const url = `/api/v1/bookstores/destroy/${params.id}`;
       const token = document.querySelector('meta[name="csrf-token"]').content;
   
       fetch(url, {
@@ -104,7 +104,7 @@ const Bookstore = () => {
                 return book;
               }
             }).map(book => {
-              return <p>{book.title} - {book.author} - {book.year}</p>
+              return <p>{book.title} - {book.author} - {book.year} - {book.quantity}</p>
             })}
           </ul>
         </div>

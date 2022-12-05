@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const Bookstore = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [bookstore, setBookstore] = useState({ address: "" });
     const [books, setBooks] = useState([]);
+    const [search, setSearch] = useState([]);
     const [copies, setCopies] = useState([]);
 
     useEffect(() => {
@@ -21,27 +23,20 @@ const Bookstore = () => {
           .catch(() => navigate("/bookstores"));
     }, [params.id]);
 
-    useEffect(() => {
-      // Get the copies of actual bookstore
-      const copies_url = `/api/v1/copies/show/${params.id}`;
-      const books_url = `/api/v1/books/show/${params.id}`;
-    }, [params.id]);
-
-    const bookList = () => {
-      let bookList = "No books available";
-  
-      if (bookstore.books.length > 0) {
-        bookList = bookstore.books
-          .split(",")
-          .map((book, index) => (
-            <li key={index} className="list-group-item">
-              {book}
-            </li>
-          ));
+    const getBooks = async () => {
+      const url = `/api/v1/show/${params.id}`;
+      try {
+        const data = await axios.get(url);
+        console.log(data.data);
+        setBooks(data.data);
+      } catch (e) {
+        console.log(e);
       }
-  
-      return bookList;
-    };
+    }
+
+    useEffect(() => {
+      getBooks();
+    }, []);
 
     const deleteBookstore = () => {
       const url = `/api/v1/destroy/${params.id}`;
@@ -79,15 +74,48 @@ const Bookstore = () => {
           </h1>
         </div>
         <div className="container py-5">
-          <div className="col-sm-12 col-lg-2">
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={deleteBookstore}
-              >
-                Delete Bookstore
-              </button>
+          <div className="row">
+            <div className="col-sm-12 col-lg-2">
+              <input 
+              type="text"
+              className="col-sm-12"
+              placeholder="Search title, author, or year"
+              onChange={e => {
+                setSearch(e.target.value);
+              }}
+              />
             </div>
+            <div className="col-sm-12 col-lg-7">
+              <ul className="list-group">
+                <h5 className="mb-2">Books</h5>
+                {books.filter(book => {
+                  if (search == "") {
+                    return book;
+                  } else if (book.title.toLowerCase().includes(search.toLowerCase())) {
+                    return book;
+                  } else if (book.author.toLowerCase().includes(search.toLowerCase())) {
+                    return book;
+                  } else if (book.year.toLowerCase().includes(search.toLowerCase())) {
+                    return book;
+                  }
+                }).map(book => {
+                  return <p>{book.title} - {book.author} - {book.year}</p>
+                })}
+              </ul>
+            </div>
+            <div className="col-sm-12 col-lg-2">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={deleteBookstore}
+                >
+                  Delete Bookstore
+                </button>
+            </div>
+          </div>
+          <Link to="/bookstores" className="btn btn-link">
+          Back to bookstores
+          </Link>
         </div>
       </div>
     );

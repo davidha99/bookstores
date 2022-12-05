@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get 'books/destroy'
       get 'bookstores/index'
       post 'bookstores/create'
-      get '/show/:id', to: 'copies#show'
+      get '/show/:id', to: 'bookstores#show'
       delete '/destroy/:id', to: 'bookstores#destroy'
     end
   end

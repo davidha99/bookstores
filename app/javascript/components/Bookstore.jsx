@@ -63,7 +63,7 @@ const Bookstore = () => {
       <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
         <div>
           <h4>
-            No books yet. Why not <Link to="/new_book">create one</Link>
+            No books yet. Why not <Link to={`/bookstore/${params.id}/book`}>create one</Link>
           </h4>
         </div>
         <div className="col-sm-12 col-lg-2">
@@ -116,6 +116,9 @@ const Bookstore = () => {
             >
               Delete Bookstore
             </button>
+          <Link to={`/bookstore/${params.id}/book`} className="btn custom-button">
+            Create New Book
+          </Link>
         </div>
       </>
     );
@@ -138,7 +141,7 @@ const Bookstore = () => {
           <div className="row">
             { books.length > 0 ? allBooks : noBooks }
           </div>
-          <Link to="/bookstores" className="btn btn-link">
+          <Link to={`/bookstores`} className="btn btn-link">
           Back to bookstores
           </Link>
         </div>

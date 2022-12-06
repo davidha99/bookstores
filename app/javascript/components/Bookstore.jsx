@@ -117,7 +117,7 @@ const Bookstore = () => {
               Delete Bookstore
             </button>
           <Link to={`/bookstore/${params.id}/book`} className="btn custom-button">
-            Create New Book
+            Add Book
           </Link>
         </div>
       </>

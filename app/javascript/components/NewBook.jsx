@@ -10,10 +10,6 @@ const NewBook = () => {
 
     let { id } = useParams(); 
 
-    useEffect(() => {
-        console.log(`/something/${id}`);
-    },[]);
-
     const stripHtmlEntities = (str) => {
         return String(str)
           .replace(/\n/g, "<br> <br>")
@@ -51,11 +47,11 @@ const NewBook = () => {
         })
           .then((response) => {
             if (response.ok) {
-                return response.json();
+              return response.json();
             }
             throw new Error("Network response was not ok.");
         })
-          .then((response) => "/bookstores") // TODO: return to current bookstore
+          .then(() => navigate(`/bookstore/${id}`))
           .catch((error) => console.log(error.message));
     };
 
@@ -112,9 +108,9 @@ const NewBook = () => {
                   />
                 </div>
                 <button type="submit" className="btn custom-button mt-3">
-                  Create Book
+                  Add Book
                 </button>
-                <Link to="/bookstores" className="btn btn-link mt-3">
+                <Link to={`/bookstore/${id}`} className="btn btn-link mt-3">
                   Back to bookstore
                 </Link>
               </form>

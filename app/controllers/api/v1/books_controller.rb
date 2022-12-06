@@ -1,13 +1,13 @@
 class Api::V1::BooksController < ApplicationController
-  before_action :set_book, only: %i[show destroy edit update]
+  before_action :set_bookstore, only: %i[show destroy edit update create]
 
-  def index
-    bookstore = Bookstore.all
-    render json: bookstore
-  end
+  # def index
+  #   bookstore = Bookstore.all
+  #   render json: bookstore
+  # end
 
   def create
-    book = Book.create!(book_params)
+    book = @bookstore.books.create!(book_params)
     if book
       render json: book
     else
@@ -21,22 +21,22 @@ class Api::V1::BooksController < ApplicationController
   def update
   end
 
-  def show
-    render json: @book
-  end
+  # def show
+  #   render json: @book
+  # end
 
-  def destroy
-    @book&.destroy
-    render json: { message: 'Book deleted!' }
-  end
+  # def destroy
+  #   @book&.destroy
+  #   render json: { message: 'Book deleted!' }
+  # end
 
   private
 
   def book_params
-    params.permit(:title, :author, :year)
+    params.permit(:title, :author, :year, :quantity)
   end
 
-  def set_book
+  def set_bookstore
     @bookstore = Bookstore.find(params[:id])
   end
 end

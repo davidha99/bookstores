@@ -15,7 +15,7 @@ class Api::V1::BookstoresController < ApplicationController
   end
 
   def show
-    render json: @bookstore.books
+    render json: @bookstore
   end
 
   def destroy

@@ -21,9 +21,9 @@ class Api::V1::BooksController < ApplicationController
   def update
   end
 
-  # def show
-  #   render json: @book
-  # end
+  def show
+    render json: @bookstore.books
+  end
 
   # def destroy
   #   @book&.destroy

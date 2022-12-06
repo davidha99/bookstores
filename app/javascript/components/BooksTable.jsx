@@ -73,6 +73,7 @@ const BooksTable = ({ params }) => {
       books[row.index] = values;
       //send/receive api updates here, then refetch or update local table data for re-render
       const update_url = `/api/v1/books/update/${row.original.id}`;
+      const get_url = `/api/v1/books/show/${params.id}`;
       const token = document.querySelector('meta[name="csrf-token"]').content;
       const body = {
         title: values.title,
@@ -97,9 +98,21 @@ const BooksTable = ({ params }) => {
         })
         .catch((error) => console.log(error.message));
 
-      getBooks();
+      fetch(get_url)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then((response) => {
+          setBooks(response);
+        })
+        .catch((error) => console.log(error.message));
+
+      // getBooks();
       setBooks([...books]);
-      exitEditingMode(); //required to exit editing mode and close modal
+      exitEditingMode();
     }
   };
 
@@ -114,8 +127,9 @@ const BooksTable = ({ params }) => {
       ) {
         return;
       }
-      //send api delete request here, then refetch or update local table data for re-render
+
       const delete_url = `/api/v1/books/destroy/${row.original.id}`;
+      const get_url = `/api/v1/books/show/${params.id}`;
       const token = document.querySelector('meta[name="csrf-token"]').content;
 
       fetch(delete_url, {
@@ -133,7 +147,19 @@ const BooksTable = ({ params }) => {
         })
         .catch((error) => console.log(error.message));
 
-      getBooks();
+      // getBooks();
+      fetch(get_url)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then((response) => {
+          setBooks(response);
+        })
+        .catch((error) => console.log(error.message));
+
       books.splice(row.index, 1);
       setBooks([...books]);
     },

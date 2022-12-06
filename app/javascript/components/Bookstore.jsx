@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import MaterialReactTable from "material-react-table";
+import BooksTable from "./BooksTable";
 
 const Bookstore = () => {
   const params = useParams();
@@ -57,31 +58,31 @@ const Bookstore = () => {
       .catch((error) => console.log(error.message));
   };
 
-  const BooksTable = () => {
-    const columns = useMemo(
-      () => [
-        {
-          accessorKey: "title",
-          header: "Title",
-        },
-        {
-          accessorKey: "author",
-          header: "Author",
-        },
-        {
-          accessorKey: "year",
-          header: "Year",
-        },
-        {
-          accessorKey: "quantity",
-          header: "Quantity",
-        },
-      ],
-      []
-    );
+  // const BooksTable = () => {
+  //   const columns = useMemo(
+  //     () => [
+  //       {
+  //         accessorKey: "title",
+  //         header: "Title",
+  //       },
+  //       {
+  //         accessorKey: "author",
+  //         header: "Author",
+  //       },
+  //       {
+  //         accessorKey: "year",
+  //         header: "Year",
+  //       },
+  //       {
+  //         accessorKey: "quantity",
+  //         header: "Quantity",
+  //       },
+  //     ],
+  //     []
+  //   );
 
-    return <MaterialReactTable columns={columns} data={books} />;
-  };
+  //   return <MaterialReactTable columns={columns} data={books} />;
+  // };
 
   return (
     <>
@@ -97,16 +98,6 @@ const Bookstore = () => {
         </h1>
       </div>
       <div className="container py-4">
-        <div className="row mb-4">
-          <div className="col">
-            <Link
-              to={`/bookstore/${params.id}/book`}
-              className="btn custom-button"
-            >
-              Add Book
-            </Link>
-          </div>
-        </div>
         <div className="row">
           <BooksTable params={params} />
         </div>

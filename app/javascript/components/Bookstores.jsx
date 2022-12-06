@@ -43,6 +43,12 @@ const Bookstores = () => {
         bookstore.codename.toLowerCase().includes(search.toLowerCase())
       ) {
         return bookstore;
+      } else if (
+        bookstore.address.toLowerCase().includes(search.toLowerCase())
+      ) {
+        return bookstore;
+      } else if (bookstore.phone.toLowerCase().includes(search.toLowerCase())) {
+        return bookstore;
       }
     })
     .map((bookstore, index) => (
@@ -55,10 +61,22 @@ const Bookstores = () => {
             alt={`${bookstore.codename} image`}
           />
           <div className="card-body">
-            <h5 className="card-title">{bookstore.codename}</h5>
+            <div className="row">
+              <h4 className="card-title">{bookstore.codename}</h4>
+            </div>
+            <div className="row">
+              <small>
+                <strong>Address:</strong> {bookstore.address}
+              </small>
+            </div>
+            <div className="row">
+              <small>
+                <strong>Phone:</strong> {bookstore.phone}
+              </small>
+            </div>
             <Link
               to={`/bookstore/${bookstore.id}`}
-              className="btn custom-button"
+              className="btn custom-button mt-2"
             >
               View bookstore
             </Link>
@@ -88,7 +106,7 @@ const Bookstores = () => {
       </section>
       <div className="py-5">
         <main className="container">
-          <div className="row mb-4">
+          <div className="row mb-2">
             <div className="col">
               <Link to="/bookstore" className="btn custom-button">
                 Create New Bookstore
@@ -100,7 +118,7 @@ const Bookstores = () => {
                   type="search"
                   className="form-control"
                   id="datatable-search-input"
-                  placeholder="Search"
+                  placeholder="Search by: codename, address, or phone"
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
